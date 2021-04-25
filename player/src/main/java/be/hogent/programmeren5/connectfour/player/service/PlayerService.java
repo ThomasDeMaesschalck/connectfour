@@ -11,9 +11,6 @@ import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
-
-import java.util.ArrayList;
-import java.util.List;
 import java.util.Optional;
 
 @Service
@@ -28,8 +25,7 @@ public class PlayerService {
 
     public Page<Player> getAll(Integer pageNo, Integer pageSize, String sortBy){
         Pageable paging = PageRequest.of(pageNo, pageSize, Sort.by(Sort.Direction.DESC, sortBy));
-        Page<Player> players = playerRepository.findAll(paging).map(playerMapper::toDTO);
-        return players;
+        return playerRepository.findAll(paging).map(playerMapper::toDTO);
     }
 
     public Player getById(Long id){
@@ -40,20 +36,27 @@ public class PlayerService {
         return null;
     }
 
-    public void save(Player player) {
+    public boolean save(Player player) {
+        player.setHighscore(0L);
         PlayerEntity playerToSave = playerMapper.toEntity(player);
-        playerRepository.save(playerToSave);
+       try {
+           playerRepository.save(playerToSave);
+       }
+       catch (Exception e)
+       {
+           return false;
+       }
+     return true;
     }
 
-    public Player increaseScore(Long id){
+    public boolean increaseScore(Long id){
     Optional<PlayerEntity> playerEntityOptional = playerRepository.findById(id);
         if(playerEntityOptional.isPresent()) {
-            Long score = playerEntityOptional.get().getHighscore();
-            Long newScore = score++;
-            playerEntityOptional.get().setHighscore(newScore);
-            return playerMapper.toDTO(playerEntityOptional.get());
+            playerEntityOptional.get().increaseHighscore();
+           playerRepository.save(playerEntityOptional.get());
+           return true;
         }
-        return null;
+        return false;
     }
 
 }

@@ -6,6 +6,7 @@ import lombok.AllArgsConstructor;
 import lombok.extern.log4j.Log4j2;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
@@ -48,22 +49,29 @@ public class PlayerResource {
     @PostMapping("/players")
     public ResponseEntity<Player> createPlayer(@Valid @RequestBody Player player)
     {
-        playerService.save(player);
-        log.info("Saved player " + player);
-        return ResponseEntity.ok(player);
+        if (playerService.save(player)) {
+            log.info("Saved player " + player);
+            return ResponseEntity.ok(player);
+        }
+        else
+        {
+            return new ResponseEntity("Player already exists",HttpStatus.BAD_REQUEST);
+        }
     }
 
     @GetMapping("/increasescore/{id}")
     @RolesAllowed("bakmix-admin")
-    public ResponseEntity<Player> increaseScoreById(@PathVariable Long id){
-        Player player = playerService.increaseScore(id);
-        if(player == null){
+    public ResponseEntity<Boolean> increaseScoreById(@PathVariable Long id){
+        boolean found = playerService.increaseScore(id);
+        if(!found){
             log.error("Failed to increase highscore of player number " + id);
 
             return ResponseEntity.notFound().build();
         }
-        log.info("Increased highscore of player number " + id);
-        return ResponseEntity.ok(player);
+        else {
+            log.info("Increased highscore of player number " + id);
+            return ResponseEntity.ok(true);
+        }
     }
 
 }
