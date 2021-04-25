@@ -34,7 +34,6 @@ public class PlayerResource {
     }
 
     @GetMapping("/players/{id}")
-    @RolesAllowed("bakmix-admin")
     public ResponseEntity<Player> getById(@PathVariable Long id){
         Player player = playerService.getById(id);
         if(player == null){
@@ -60,7 +59,6 @@ public class PlayerResource {
     }
 
     @GetMapping("/increasescore/{id}")
-    @RolesAllowed("bakmix-admin")
     public ResponseEntity<Boolean> increaseScoreById(@PathVariable Long id){
         boolean found = playerService.increaseScore(id);
         if(!found){
