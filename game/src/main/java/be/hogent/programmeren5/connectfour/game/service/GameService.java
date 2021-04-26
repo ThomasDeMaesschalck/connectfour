@@ -29,44 +29,67 @@ public class GameService {
 
     public boolean dropToken(int columnNumber, Long playerId){
         //validate move
+        boolean validationStatus = false;
         if(validateMove(columnNumber))
+
         {
         //dropping a token in the connect four board
-        String[][] board = getGame().getBoard();
+        Long[][] board = getGame().getBoard();
         int currentRowToFill = boardRowsFilledPerColumn[columnNumber];
-        board[columnNumber][currentRowToFill] =String.valueOf(playerId);
+        board[columnNumber][currentRowToFill] = playerId;
         getGame().setBoard(board);
         boardRowsFilledPerColumn[columnNumber]++;
 
         //check for win
+            if(checkIfPlayerWon())
+            {
+                getGame().setGameWon(true);
+            }
 
         //set next player ID if game not won
         if (!getGame().isGameWon()) {
-            Long player1 = getGame().getPlayer1();
-            Long player2 = getGame().getPlayer2();
-            if (getGame().getCurrentPlayer().equals(player1)) {
-                getGame().setCurrentPlayer(player2);
-            } else {
-                getGame().setCurrentPlayer(player1);
-            }
+            setNextPlayer();
         }
-        return true;
+        validationStatus = true;
         }
-        else
-        {
-        return false;
+
+        return validationStatus;
         }
-    }
+
 
     public boolean validateMove(int columnNumber) {
-        if(boardRowsFilledPerColumn[columnNumber] < rows)
-        {
-            return true;
-        }
-        else
-        {
-            return false;
+        return boardRowsFilledPerColumn[columnNumber] < rows;
+    }
+
+    public void setNextPlayer() {
+        Long player1 = getGame().getPlayer1();
+        Long player2 = getGame().getPlayer2();
+        if (getGame().getCurrentPlayer().equals(player1)) {
+            getGame().setCurrentPlayer(player2);
+        } else {
+            getGame().setCurrentPlayer(player1);
         }
     }
 
+    public boolean checkIfPlayerWon(){
+     boolean winCheck = false;
+     Long currentPlayer = getGame().getCurrentPlayer();
+
+     //check horizontal
+        for(int row = 0; row < rows; row++){
+            for (int col = 0; col < columns - 3; col++){
+                if (getGame().getBoard()[col][row] == currentPlayer  &&
+                        getGame().getBoard()[col+1][row] == currentPlayer  &&
+                        getGame().getBoard()[col+2][row] == currentPlayer &&
+                        getGame().getBoard()[col+3][row] == currentPlayer ){
+                    winCheck = true;
+                }
+            }
+        }
+
+
+
+
+     return winCheck;
+    }
 }

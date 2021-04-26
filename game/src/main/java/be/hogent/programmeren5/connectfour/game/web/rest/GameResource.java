@@ -38,8 +38,7 @@ public class GameResource {
         return ResponseEntity.ok(gameStarted);
     }
 
-    @GetMapping("/droptoken/{columnNumber}")
-    @RolesAllowed("bakmix-admin")
+    @PostMapping("/droptoken/{columnNumber}")
     public ResponseEntity<Boolean> dropToken(@PathVariable int columnNumber){
         Boolean validated = gameService.dropToken(columnNumber, gameService.getGame().getCurrentPlayer());
 
