@@ -87,7 +87,17 @@ public class GameService {
             }
         }
 
-
+        //check vertical
+        for(int row = 0; row < rows - 3; row++){
+            for (int col = 0; col < columns; col++){
+                if (getGame().getBoard()[col][row] == currentPlayer  &&
+                        getGame().getBoard()[col][row+1] == currentPlayer  &&
+                        getGame().getBoard()[col][row+2] == currentPlayer &&
+                        getGame().getBoard()[col][row+3] == currentPlayer ){
+                    winCheck = true;
+                }
+            }
+        }
 
 
      return winCheck;
