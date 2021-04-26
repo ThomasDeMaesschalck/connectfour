@@ -73,15 +73,16 @@ public class GameService {
 
     public boolean checkIfPlayerWon(){
      boolean winCheck = false;
+     Long[][] board = getGame().getBoard();
      Long currentPlayer = getGame().getCurrentPlayer();
 
      //check horizontal
         for(int row = 0; row < rows; row++){
             for (int col = 0; col < columns - 3; col++){
-                if (getGame().getBoard()[col][row] == currentPlayer  &&
-                        getGame().getBoard()[col+1][row] == currentPlayer  &&
-                        getGame().getBoard()[col+2][row] == currentPlayer &&
-                        getGame().getBoard()[col+3][row] == currentPlayer ){
+                if (board[col][row] == currentPlayer  &&
+                        board[col+1][row] == currentPlayer  &&
+                        board[col+2][row] == currentPlayer &&
+                        board[col+3][row] == currentPlayer ){
                     winCheck = true;
                 }
             }
@@ -90,15 +91,38 @@ public class GameService {
         //check vertical
         for(int row = 0; row < rows - 3; row++){
             for (int col = 0; col < columns; col++){
-                if (getGame().getBoard()[col][row] == currentPlayer  &&
-                        getGame().getBoard()[col][row+1] == currentPlayer  &&
-                        getGame().getBoard()[col][row+2] == currentPlayer &&
-                        getGame().getBoard()[col][row+3] == currentPlayer ){
+                if (board[col][row] == currentPlayer  &&
+                        board[col][row+1] == currentPlayer  &&
+                        board[col][row+2] == currentPlayer &&
+                        board[col][row+3] == currentPlayer ){
                     winCheck = true;
                 }
             }
         }
 
+        //check diagonal
+        for(int row = 3; row < rows - 3; row++){
+            for(int col = 0; col < columns - 3; col++){
+                if (board[col][row] == currentPlayer   &&
+                        board[col+1][row-1] == currentPlayer &&
+                        board[col+2][row-2] == currentPlayer &&
+                        board[col+3][row-3] == currentPlayer){
+                    return true;
+                }
+            }
+        }
+
+        //check reverse diagonal
+        for(int row = 0; row < rows - 3; row++){
+            for(int col = 0; col < columns - 3; col++){
+                if (board[col][row] == currentPlayer   &&
+                        board[col+1][row+1] == currentPlayer &&
+                        board[col+2][row+2] == currentPlayer &&
+                        board[col+3][row+3] == currentPlayer){
+                    return true;
+                }
+            }
+        }
 
      return winCheck;
     }
