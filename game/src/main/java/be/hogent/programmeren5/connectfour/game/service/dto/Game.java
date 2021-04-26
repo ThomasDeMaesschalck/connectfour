@@ -12,7 +12,6 @@ public class Game {
     }
 
     private String[][] board;
-
     private Long player1;
     private Long player2;
     private Long currentPlayer;

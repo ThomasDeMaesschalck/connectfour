@@ -11,7 +11,7 @@
         <module name="player" />
       </profile>
     </annotationProcessing>
-    <bytecodeTargetLevel>
+    <bytecodeTargetLevel target="13">
       <module name="game" target="11" />
       <module name="player" target="11" />
     </bytecodeTargetLevel>
