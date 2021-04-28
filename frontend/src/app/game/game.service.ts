@@ -38,12 +38,8 @@ export class GameService {
   }
 
   find(): Observable<Game> {
-    const params: any = {
-       };
-    return this.http.get<Game>(this.api, {headers, params}).pipe(
-      map((response: any) => {
-          return response.content;
-        }
-      ));
+    const params: any = {};
+    return this.http.get<Game>(this.api, {headers, params})
   }
+
 }
