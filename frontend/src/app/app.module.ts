@@ -7,6 +7,8 @@ import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
 import {FormsModule} from '@angular/forms';
 import {HighscoreModule} from "./highscore/highscore.module";
 import {HttpClientModule} from "@angular/common/http";
+import {GameplayComponent} from "./game/gameplay/gameplay.component";
+import {GameModule} from "./game/game.module";
 
 @NgModule({
   declarations: [
@@ -17,6 +19,7 @@ import {HttpClientModule} from "@angular/common/http";
     AppRoutingModule,
     NgbModule,
     HighscoreModule,
+    GameModule,
     HttpClientModule
   ],
   providers: [],
