@@ -4,6 +4,8 @@ import { HighscoreListComponent } from './highscore-list/highscore-list.componen
 import {FormsModule} from "@angular/forms";
 import {NgbPaginationModule} from "@ng-bootstrap/ng-bootstrap";
 import {HighscoreService} from "./highscore.service";
+import {RouterModule} from "@angular/router";
+import {HIGHSCORE_ROUTES} from "./highscore.routes";
 
 
 
@@ -12,8 +14,10 @@ import {HighscoreService} from "./highscore.service";
   imports: [
     CommonModule,
     FormsModule,
+    RouterModule.forChild(HIGHSCORE_ROUTES),
     NgbPaginationModule
   ],
-  providers: [HighscoreService]
+  providers: [HighscoreService],
+  exports: []
 })
 export class HighscoreModule { }

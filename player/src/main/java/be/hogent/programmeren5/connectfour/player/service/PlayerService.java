@@ -24,7 +24,7 @@ public class PlayerService {
     private PlayerMapper playerMapper;
 
     public Page<Player> getAll(Integer pageNo, Integer pageSize, String sortBy){
-        Pageable paging = PageRequest.of(pageNo, pageSize, Sort.by(Sort.Direction.DESC, sortBy));
+        Pageable paging = PageRequest.of(pageNo, pageSize, Sort.by(Sort.Direction.ASC, sortBy));
         return playerRepository.findAll(paging).map(playerMapper::toDTO);
     }
 
