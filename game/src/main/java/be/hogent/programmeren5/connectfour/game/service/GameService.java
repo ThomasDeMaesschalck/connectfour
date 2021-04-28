@@ -1,7 +1,10 @@
 package be.hogent.programmeren5.connectfour.game.service;
 
 import be.hogent.programmeren5.connectfour.game.service.dto.Game;
+import be.hogent.programmeren5.connectfour.game.service.dto.Player;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Service;
+import org.springframework.web.client.RestTemplate;
 
 import java.util.Arrays;
 
@@ -13,12 +16,11 @@ public class GameService {
     private Game game;
     private int[] boardRowsFilledPerColumn;
 
-
     public Game getGame(){
         return game;
     }
 
-    public Game startGame(Long player1, Long player2) //setting up a new board
+    public Game startGame(Player player1, Player player2) //setting up a new board
     {
         game = new Game(columns, rows, player1, player2);
         boardRowsFilledPerColumn = new int[columns];
@@ -62,19 +64,17 @@ public class GameService {
     }
 
     public void setNextPlayer() {
-        Long player1 = getGame().getPlayer1();
-        Long player2 = getGame().getPlayer2();
-        if (getGame().getCurrentPlayer().equals(player1)) {
-            getGame().setCurrentPlayer(player2);
+        if (getGame().getCurrentPlayer().equals(getGame().getPlayer1())) {
+            getGame().setCurrentPlayer(getGame().getPlayer2());
         } else {
-            getGame().setCurrentPlayer(player1);
+            getGame().setCurrentPlayer(game.getPlayer1());
         }
     }
 
     public boolean checkIfPlayerWon(){
      boolean winCheck = false;
      Long[][] board = getGame().getBoard();
-     Long currentPlayer = getGame().getCurrentPlayer();
+     Long currentPlayer = getGame().getCurrentPlayer().getId();
 
      //check horizontal
         for(int row = 0; row < rows; row++){
@@ -101,7 +101,7 @@ public class GameService {
         }
 
         //check diagonal
-        for(int row = 3; row < rows - 3; row++){
+        for(int row = 3; row < rows - 3; row++){  //nakijken of dit klopt
             for(int col = 0; col < columns - 3; col++){
                 if (board[col][row] == currentPlayer   &&
                         board[col+1][row-1] == currentPlayer &&
