@@ -1,0 +1,24 @@
+<ol class="breadcrumb">
+  <li class="breadcrumb-item"><a routerLink="/">Home</a></li>
+  <li class="breadcrumb-item active">Add a player</li>
+</ol>
+<div class="card">
+  <div class="card-body">
+
+    <div class="card-text">
+      <div *ngIf="feedback.message" class="alert alert-{{feedback.type}}">{{ feedback.message }}</div>
+
+      <form  #editForm="ngForm" (ngSubmit)="save()">
+
+        <div class="form-group">
+          <label for="name">Enter your name:</label>
+          <input [(ngModel)]="player.name" id="name" name="name" class="form-control" required #name="ngModel"
+                 [ngClass]="{'is-invalid': name.touched && name.invalid,  'is-valid': name.touched && name.valid}">
+        </div>
+
+
+        <button type="submit" title="Name must be supplied!" class="btn btn-primary" [disabled]="!editForm.form.valid">Save</button>
+      </form>
+    </div>
+  </div>
+</div>

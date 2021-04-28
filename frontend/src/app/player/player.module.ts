@@ -3,21 +3,22 @@ import { CommonModule } from '@angular/common';
 import { HighscoreListComponent } from './highscore-list/highscore-list.component';
 import {FormsModule} from "@angular/forms";
 import {NgbPaginationModule} from "@ng-bootstrap/ng-bootstrap";
-import {HighscoreService} from "./highscore.service";
 import {RouterModule} from "@angular/router";
-import {HIGHSCORE_ROUTES} from "./highscore.routes";
+import {PlayerService} from "./player.service";
+import {PLAYER_ROUTES} from "./player.routes";
+import { AddPlayerComponent } from './add-player/add-player.component';
 
 
 
 @NgModule({
-  declarations: [HighscoreListComponent],
+  declarations: [HighscoreListComponent, AddPlayerComponent],
   imports: [
     CommonModule,
     FormsModule,
-    RouterModule.forChild(HIGHSCORE_ROUTES),
+    RouterModule.forChild(PLAYER_ROUTES),
     NgbPaginationModule
   ],
-  providers: [HighscoreService],
+  providers: [PlayerService],
   exports: []
 })
-export class HighscoreModule { }
+export class PlayerModule { }

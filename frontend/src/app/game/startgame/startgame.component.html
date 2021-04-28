@@ -1,1 +1,38 @@
-<p>startgame works!</p>
+<ol class="breadcrumb">
+  <li class="breadcrumb-item active">Create new game</li>
+</ol>
+<div class="card">
+  <div class="card-body">
+
+    <div class="card-text">
+      <div *ngIf="feedback.message" class="alert alert-{{feedback.type}}">{{ feedback.message }}</div>
+
+      <div class="h2">Connect Four - Start a new game:</div>
+
+
+      <form  #editForm="ngForm" (ngSubmit)="save()">
+
+        <div class="form-group">
+          <label for="player1">Pick first player:</label>
+
+          <select class="form-control" [(ngModel)]="game.player1" id="player1" name="player1" required>
+            <option *ngFor="let player of playerList"  id="playerItem" name="player1" [ngValue]="player">{{player.name}}</option>
+          </select>
+        </div>
+
+
+        <div class="form-group">
+          <label for="player1">Pick second player:</label>
+
+          <select class="form-control" [(ngModel)]="game.player2" id="player2" name="player2" required>
+            <option *ngFor="let player of playerList" id="playerItem2" name="player2" [ngValue]="player">{{player.name}}</option>
+          </select>
+        </div>
+
+
+
+        <button type="submit" title="Two players need to be selected!" class="btn btn-primary" [disabled]="!editForm.form.valid">Save</button>
+      </form>
+    </div>
+  </div>
+</div>

@@ -5,7 +5,7 @@ import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
 import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
 import {FormsModule} from '@angular/forms';
-import {HighscoreModule} from "./highscore/highscore.module";
+import {PlayerModule} from "./player/player.module";
 import {HttpClientModule} from "@angular/common/http";
 import {GameplayComponent} from "./game/gameplay/gameplay.component";
 import {GameModule} from "./game/game.module";
@@ -18,7 +18,7 @@ import {GameModule} from "./game/game.module";
     BrowserModule,
     AppRoutingModule,
     NgbModule,
-    HighscoreModule,
+    PlayerModule,
     GameModule,
     HttpClientModule
   ],

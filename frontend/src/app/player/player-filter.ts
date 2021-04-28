@@ -1,4 +1,4 @@
-export class HighscoreFilter {
+export class PlayerFilter {
   id = '';
   page = 0;
   size = 10;

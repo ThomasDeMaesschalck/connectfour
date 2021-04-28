@@ -1,8 +1,8 @@
 import { Injectable } from '@angular/core';
-import {HttpClient, HttpHeaders} from "@angular/common/http";
+import {HttpClient, HttpHeaders, HttpParams} from "@angular/common/http";
 import {BehaviorSubject, Observable} from "rxjs";
 import {Player} from "../models/player";
-import {HighscoreFilter} from "./highscore-filter";
+import {PlayerFilter} from "./player-filter";
 import {map} from "rxjs/operators";
 
 const headers = new HttpHeaders().set('Accept', 'application/json');
@@ -10,7 +10,7 @@ const headers = new HttpHeaders().set('Accept', 'application/json');
 @Injectable({
   providedIn: 'root'
 })
-export class HighscoreService {
+export class PlayerService {
 
   size$ = new BehaviorSubject<number>(0);
   playerList: Player[] = [];
@@ -19,7 +19,7 @@ export class HighscoreService {
   constructor(private http: HttpClient) { }
 
 
-  load(filter: HighscoreFilter): void {
+  load(filter: PlayerFilter): void {
     this.find(filter).subscribe(result => {
         this.playerList = result;
       },
@@ -29,7 +29,7 @@ export class HighscoreService {
     );
   }
 
-  find(filter: HighscoreFilter): Observable<Player[]> {
+  find(filter: PlayerFilter): Observable<Player[]> {
 
     const params: any = {
       id: filter.id,
@@ -44,5 +44,12 @@ export class HighscoreService {
         }
       ));
   }
+
+  save(playerToSave: Player): Observable<Player> {
+    let params = new HttpParams();
+    let url = '';
+    url = `${this.api}`;
+    return this.http.post<Player>(url, playerToSave, {headers, params});
+    }
 
 }

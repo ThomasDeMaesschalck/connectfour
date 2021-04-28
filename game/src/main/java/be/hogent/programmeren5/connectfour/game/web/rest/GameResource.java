@@ -34,6 +34,13 @@ public class GameResource {
     {
         Player player1 = game.getPlayer1();
         Player player2 = game.getPlayer2();
+
+        if(player1.equals(player2)){
+            log.error("Failed to make game - players not unique");
+
+            return ResponseEntity.badRequest().build();
+        }
+
         Game gameStarted = gameService.startGame(player1, player2);
         log.info("Started a new game with player " + player1.getId() + " and player " + player2.getId());
         return ResponseEntity.ok(gameStarted);

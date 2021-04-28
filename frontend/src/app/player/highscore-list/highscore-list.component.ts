@@ -1,8 +1,8 @@
 import { Component, OnInit } from '@angular/core';
 import {Observable} from "rxjs";
-import {HighscoreFilter} from "../highscore-filter";
+import {PlayerFilter} from "../player-filter";
 import {Player} from "../../models/player";
-import {HighscoreService} from "../highscore.service";
+import {PlayerService} from "../player.service";
 
 @Component({
   selector: 'app-highscore-list',
@@ -11,11 +11,11 @@ import {HighscoreService} from "../highscore.service";
 export class HighscoreListComponent implements OnInit {
 
   total$: Observable<number>;
-  filter = new HighscoreFilter();
+  filter = new PlayerFilter();
   selectedPlayer: Player;
   feedback: any = {};
 
-  constructor(private highscoreService: HighscoreService) { }
+  constructor(private playerService: PlayerService) { }
 
   ngOnInit(): void {
     this.filter.id = '';
@@ -25,12 +25,12 @@ export class HighscoreListComponent implements OnInit {
   }
 
   get playerList(): Player[] {
-    return this.highscoreService.playerList;
+    return this.playerService.playerList;
   }
 
   search(): void {
-    this.highscoreService.load(this.filter);
-    this.total$ = this.highscoreService.size$;
+    this.playerService.load(this.filter);
+    this.total$ = this.playerService.size$;
   }
 
   select(selected: Player): void {
