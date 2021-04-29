@@ -9,13 +9,13 @@
   </p>
 
 
-  <div *ngIf="gameInProgress.gameWon == false" class="nes-container is-dark mb-5">
+  <div *ngIf="gameInProgress != null && gameInProgress.gameWon != true" class="nes-container is-dark mb-5">
     <p class="nes-text is-warning">Warning: There is a game in progress</p>
     <p><a class="nes-btn is-warning" href="game/play">Continue existing game</a></p>
   </div>
 
 
-  <div class="h2 mb-4">Connect Four - Start a new game:</div>
+  <div class="h2 mb-4">  <i class="snes-jp-logo"></i> Connect Four - Start a new game:</div>
 
 
       <form  #editForm="ngForm" (ngSubmit)="save()">

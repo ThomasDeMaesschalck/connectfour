@@ -34,7 +34,8 @@ export class PlayerService {
     const params: any = {
       id: filter.id,
       pageSize: filter.size,
-      pageNo: filter.page
+      pageNo: filter.page,
+      sortBy: filter.sortBy
     };
 
     return this.http.get<Player[]>(this.api, {headers, params}).pipe(

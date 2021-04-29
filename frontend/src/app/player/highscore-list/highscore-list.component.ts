@@ -21,6 +21,7 @@ export class HighscoreListComponent implements OnInit {
     this.filter.id = '';
     this.filter.page = 0;
     this.filter.size = 5;
+    this.filter.sortBy = 'highscore';
     this.search();
   }
 
