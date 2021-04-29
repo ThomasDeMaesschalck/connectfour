@@ -8,19 +8,22 @@
     {{ feedback.message }}
   </p>
 
-  <div>{{game.currentPlayer.name}}, make a move!</div>
+  <div>{{game.currentPlayer.name}}, drop a token!</div>
 
-  <div class="container">
+  <div class="container mt-2">
     <div class="row">
-      <div *ngFor="let item of game.board" class="col-sm">
+      <div *ngFor="let item of game.board" class="col-sm columnhover pt-2 pb-2">
+<div (click)="game.gameWon == false && dropToken(game.board.indexOf(item))">
 
-        <div *ngFor="let subitem of item.reverse()">
+  <div *ngFor="let subitem of item.reverse()">
           <div>
-          <p *ngIf="subitem != null">{{subitem.toString()}}</p>
-          <p *ngIf="subitem == null" style="background-color:black;">0</p>
+          <p *ngIf="subitem != null && subitem.toString() == game.player1.id" class="redcircle"></p>
+          <p *ngIf="subitem != null && subitem.toString() == game.player2.id" class="yellowcircle"></p>
+            <p *ngIf="subitem == null" class="whitecircle"></p>
         </div>
       </div>
     </div>
+  </div>
   </div>
   </div>
 

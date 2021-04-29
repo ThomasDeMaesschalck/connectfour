@@ -16,6 +16,7 @@ export class GameService {
 
   game: Game;
   api = 'http://localhost:5552/api/games/';
+  dropTokenApi = 'http://localhost:5552/api/droptoken/';
 
   constructor(private http: HttpClient) { }
 
@@ -40,6 +41,12 @@ export class GameService {
   find(): Observable<Game> {
     const params: any = {};
     return this.http.get<Game>(this.api, {headers, params})
+  }
+
+  dropToken(columnId: number): Observable<boolean> {
+    let params = new HttpParams();
+    const  url = `${this.dropTokenApi}${columnId}`;
+    return this.http.post<boolean>(url, Game, {params, headers})
   }
 
 }

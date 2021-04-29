@@ -18,6 +18,7 @@ export class GameplayComponent implements OnInit {
 
   ngOnInit(): void {
     this.load();
+    this.feedback = {};
   }
 
   get game(): Game {
@@ -25,5 +26,18 @@ export class GameplayComponent implements OnInit {
   }
   load(): void {
     this.gameService.load();
+  }
+
+  dropToken(columnId: number) {
+    this.gameService.dropToken(columnId).subscribe(
+      game => {
+        setTimeout(() => {
+          this.ngOnInit();
+        }, 100);
+      },
+      err => {
+        this.feedback = {type: 'warning', message: 'This move is not possible'};
+      }
+    );
   }
 }

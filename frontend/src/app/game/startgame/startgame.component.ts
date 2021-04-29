@@ -39,11 +39,9 @@ export class StartgameComponent implements OnInit {
   }
 
   gameStarterhider(): void {
-    if (this.gameInProgress != null) {
-      if (this.gameInProgress.gameWon != true) {
-        {
-          this.hideGameStarter = true;
-        }
+      if (this.gameInProgress != null) {
+      if (this.gameInProgress.gameWon == true) {
+          this.hideGameStarter = false;
       }
     }
   }
