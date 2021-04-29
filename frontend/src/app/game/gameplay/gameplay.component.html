@@ -1,3 +1,41 @@
-<p>gameplay works!</p>
+<ol class="breadcrumb">
+  <li class="breadcrumb-item active">Connect Four game</li>
+</ol>
+<div class="nes-container">
 
-<div>Is playing: {{game.currentPlayer.name}}</div>
+
+  <p *ngIf="feedback.message" class="mt-3 nes-balloon from-left nes-pointer alert-{{feedback.type}}">
+    {{ feedback.message }}
+  </p>
+
+  <div>{{game.currentPlayer.name}}, make a move!</div>
+
+  <div class="container">
+    <div class="row">
+      <div *ngFor="let item of game.board" class="col-sm">
+
+        <div *ngFor="let subitem of item.reverse()">
+          <div>
+          <p *ngIf="subitem != null">{{subitem.toString()}}</p>
+          <p *ngIf="subitem == null" style="background-color:black;">0</p>
+        </div>
+      </div>
+    </div>
+  </div>
+  </div>
+
+
+
+
+
+
+
+
+  <p>{{game.gameWon}}</p>
+
+
+
+
+
+</div>
+

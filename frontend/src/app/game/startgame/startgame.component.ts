@@ -15,6 +15,7 @@ export class StartgameComponent implements OnInit {
   feedback: any = {};
   game: Game;
   filter = new PlayerFilter();
+  hideGameStarter: boolean;
 
   constructor(
     private router: Router,
@@ -24,6 +25,7 @@ export class StartgameComponent implements OnInit {
 
   ngOnInit(): void {
     this.gameInProgressCheck();
+    this.gameStarterhider();
     this.loadPlayers();
     this.game = new Game();
   }
@@ -34,6 +36,16 @@ export class StartgameComponent implements OnInit {
 
   loadPlayers(): void {
     this.playerService.load(this.filter);
+  }
+
+  gameStarterhider(): void {
+    if (this.gameInProgress != null) {
+      if (this.gameInProgress.gameWon != true) {
+        {
+          this.hideGameStarter = true;
+        }
+      }
+    }
   }
 
   get gameInProgress(): Game {

@@ -9,12 +9,15 @@
   </p>
 
 
-  <div *ngIf="gameInProgress != null && gameInProgress.gameWon != true" class="nes-container is-dark mb-5">
+  <div *ngIf="gameInProgress != null && gameInProgress.gameWon != true" class="nes-container is-dark mt-5 mb-5">
     <p class="nes-text is-warning">Warning: There is a game in progress</p>
-    <p><a class="nes-btn is-warning" href="game/play">Continue existing game</a></p>
+    <p><a class="nes-btn is-warning" href="game/play">Continue existing game</a>
+     <button class="ml-5 nes-btn is-primary" (click)="hideGameStarter = false">Make new game</button>
+    </p>
+
   </div>
 
-
+<div *ngIf="hideGameStarter == false">
   <div class="h2 mb-4">  <i class="snes-jp-logo"></i> Connect Four - Start a new game:</div>
 
 
@@ -42,3 +45,4 @@
         <button type="submit" title="Two unique players need to be selected!" class="nes-btn" [ngClass]="{'is-disabled': !editForm.form.valid, 'is-success': editForm.form.valid}">Start playing!</button>
       </form>
     </div>
+</div>

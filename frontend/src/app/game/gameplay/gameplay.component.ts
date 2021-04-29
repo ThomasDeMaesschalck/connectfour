@@ -6,7 +6,8 @@ import {Observable} from "rxjs";
 
 @Component({
   selector: 'app-gameplay',
-  templateUrl: './gameplay.component.html'
+  templateUrl: './gameplay.component.html',
+ styleUrls: ['./gameplay.stylesheet.css']
 })
 export class GameplayComponent implements OnInit {
 
