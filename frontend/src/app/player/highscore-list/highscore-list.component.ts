@@ -20,7 +20,7 @@ export class HighscoreListComponent implements OnInit {
   ngOnInit(): void {
     this.filter.id = '';
     this.filter.page = 0;
-    this.filter.size = 10;
+    this.filter.size = 5;
     this.search();
   }
 

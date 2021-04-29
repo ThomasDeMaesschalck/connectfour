@@ -1,38 +1,37 @@
 <ol class="breadcrumb">
   <li class="breadcrumb-item active">Create new game</li>
 </ol>
-<div class="card">
-  <div class="card-body">
+<div class="nes-container">
 
-    <div class="card-text">
-      <div *ngIf="feedback.message" class="alert alert-{{feedback.type}}">{{ feedback.message }}</div>
 
-      <div class="h2">Connect Four - Start a new game:</div>
+  <p *ngIf="feedback.message" class="mt-3 nes-balloon from-left nes-pointer alert-{{feedback.type}}">
+    {{ feedback.message }}
+  </p>
+
+      <div class="h2 mb-4">Connect Four - Start a new game:</div>
 
 
       <form  #editForm="ngForm" (ngSubmit)="save()">
 
-        <div class="form-group">
+        <div class="nes-select mb-4">
           <label for="player1">Pick first player:</label>
 
-          <select class="form-control" [(ngModel)]="game.player1" id="player1" name="player1" required>
+          <select [(ngModel)]="game.player1" id="player1" name="player1" required>
             <option *ngFor="let player of playerList"  id="playerItem" name="player1" [ngValue]="player">{{player.name}}</option>
           </select>
         </div>
 
 
-        <div class="form-group">
+        <div class="nes-select mb-4">
           <label for="player1">Pick second player:</label>
 
-          <select class="form-control" [(ngModel)]="game.player2" id="player2" name="player2" required>
+          <select [(ngModel)]="game.player2" id="player2" name="player2" required>
             <option *ngFor="let player of playerList" id="playerItem2" name="player2" [ngValue]="player">{{player.name}}</option>
           </select>
         </div>
 
 
 
-        <button type="submit" title="Two players need to be selected!" class="btn btn-primary" [disabled]="!editForm.form.valid">Save</button>
+        <button type="submit" title="Two unique players need to be selected!" class="nes-btn" [ngClass]="{'is-disabled': !editForm.form.valid, 'is-success': editForm.form.valid}">Start playing!</button>
       </form>
     </div>
-  </div>
-</div>
