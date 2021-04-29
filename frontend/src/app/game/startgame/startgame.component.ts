@@ -23,6 +23,7 @@ export class StartgameComponent implements OnInit {
 
 
   ngOnInit(): void {
+    this.gameInProgressCheck();
     this.loadPlayers();
     this.game = new Game();
   }
@@ -33,6 +34,14 @@ export class StartgameComponent implements OnInit {
 
   loadPlayers(): void {
     this.playerService.load(this.filter);
+  }
+
+  get gameInProgress(): Game {
+    return this.gameService.game;
+  }
+
+  gameInProgressCheck(): void {
+    this.gameService.load();
   }
 
   save() {
