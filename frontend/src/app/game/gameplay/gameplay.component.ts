@@ -40,4 +40,5 @@ export class GameplayComponent implements OnInit {
       }
     );
   }
+
 }

@@ -8,7 +8,8 @@
     {{ feedback.message }}
   </p>
 
-  <div *ngIf="game.gameWon == false">{{game.currentPlayer.name}}, drop a token!</div>
+  <div *ngIf="game.gameWon == false && game.boardIsFull != true">{{game.currentPlayer.name}}, drop a token!</div>
+  <div *ngIf="game.gameWon == false && game.boardIsFull == true"><span class="nes-text is-error">Both players lost, board is full!</span></div>
 
   <p *ngIf="game.gameWon == true" class="nes-balloon from-left nes-pointer">
     <i class="nes-icon trophy is-large"></i>
@@ -18,12 +19,12 @@
 
   <div class="container mt-2">
     <div class="row">
-      <div *ngFor="let item of game.board" class="col-sm columnhover pt-2 pb-2"
+      <div *ngFor="let item of game.board" class="col-sm columnhover pt-3 pb-2"
            [ngClass]="{columnhover: game.gameWon == false, 'not-allowed': game.gameWon == true}">
 <div (click)="game.gameWon == false && dropToken(game.board.indexOf(item))" >
 
   <div *ngFor="let subitem of item.reverse()">
-          <div>
+          <div class="pl-3">
           <p *ngIf="subitem != null && subitem.toString() == game.player1.id" class="redcircle"></p>
           <p *ngIf="subitem != null && subitem.toString() == game.player2.id" class="yellowcircle"></p>
             <p *ngIf="subitem == null" class="whitecircle"></p>

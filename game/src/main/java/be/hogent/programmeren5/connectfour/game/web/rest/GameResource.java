@@ -11,6 +11,8 @@ import org.springframework.web.bind.annotation.*;
 
 import javax.annotation.security.RolesAllowed;
 import javax.validation.Valid;
+import java.util.Arrays;
+import java.util.stream.StreamSupport;
 
 @CrossOrigin
 @RestController
@@ -23,9 +25,16 @@ public class GameResource {
     private GameService gameService;
 
     @GetMapping("/games")
-    public ResponseEntity<Game> getGame(){
+    public ResponseEntity<Game> getGame() {
         Game game = gameService.getGame();
         log.info("Retrieved game details");
+
+        if (this.gameService.getGame() != null) { //check if board is full
+            if (this.gameService.getGame().isGameWon() == false && gameService.isBoardFull()) {
+                log.info("Board is full");
+                game.setBoardIsFull(true);
+            }
+        }
         return ResponseEntity.ok(game);
     }
 
@@ -61,6 +70,7 @@ public class GameResource {
             throw new Exception("Not a valid move");
         }
         log.info("Dropped a token in column " + columnNumber);
+
         return ResponseEntity.ok(validated);
     }
 

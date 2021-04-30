@@ -16,5 +16,5 @@ public class Game {
     private Player player2;
     private Player currentPlayer;
     private boolean gameWon;
-
+    private boolean boardIsFull;
 }

@@ -1,18 +1,18 @@
 .redcircle {
-  width: 100px;
-  height: 100px;
+  width: 5em;
+  height: 5em;
   background: orangered;
   border-radius: 50%
 }
 .yellowcircle {
-  width: 100px;
-  height: 100px;
+  width: 5em;
+  height: 5em;
   background: yellow;
   border-radius: 50%
 }
 .whitecircle {
-  width: 100px;
-  height: 100px;
+  width: 5em;
+  height: 5em;
   background: white;
   border-radius: 50%
 }

@@ -36,7 +36,6 @@ public class GameService {
         //validate move
         boolean validationStatus = false;
         if(validateMove(columnNumber))
-
         {
         //dropping a token in the connect four board
         Long[][] board = getGame().getBoard();
@@ -84,7 +83,7 @@ public class GameService {
      Long[][] board = getGame().getBoard();
      Long currentPlayer = getGame().getCurrentPlayer().getId();
 
-     //check horizontal
+        //check horizontal
         for(int row = 0; row < rows; row++){
             for (int col = 0; col < columns - 3; col++){
                 if (board[col][row] == currentPlayer  &&
@@ -132,6 +131,18 @@ public class GameService {
             }
         }
 
-     return winCheck;
+        return winCheck;
+    }
+
+    public boolean isBoardFull() { //check if slots filled equals maximum number of slots
+        int slotsFilled = 0;
+        for (int i = 0; i < columns; i++ )
+        {
+            slotsFilled += boardRowsFilledPerColumn[i];
+        }
+        if (columns * rows == slotsFilled) {
+            return true;
+        }
+        return false;
     }
 }

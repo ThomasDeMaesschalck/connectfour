@@ -6,4 +6,5 @@ export class Game {
   player2: Player;
   currentPlayer: Player;
   gameWon: boolean;
+  boardIsFull: boolean;
 }
