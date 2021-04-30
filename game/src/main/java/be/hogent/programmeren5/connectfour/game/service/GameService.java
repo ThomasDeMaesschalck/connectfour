@@ -11,7 +11,10 @@ import java.util.Arrays;
 @Service
 public class GameService {
 
-     private static final int columns = 7;
+    @Value("http://localhost:5551/api/increasescore/")
+    private String urlPlayersHighscore;
+
+    private static final int columns = 7;
     private static final int rows = 6;
     private Game game;
     private int[] boardRowsFilledPerColumn;
@@ -46,6 +49,11 @@ public class GameService {
             if(checkIfPlayerWon())
             {
                 getGame().setGameWon(true);
+                if(game.isGameWon() == true)
+                { //update highscore if game won
+                    RestTemplate rtHighscoreUpdate = new RestTemplate();
+                    rtHighscoreUpdate.postForLocation(urlPlayersHighscore+getGame().getCurrentPlayer().getId(), String.class);
+                }
             }
 
         //set next player ID if game not won
