@@ -31,7 +31,7 @@ export class AddPlayerComponent implements OnInit {
         }, 1000);
       },
       err => {
-        this.feedback = {type: 'warning', message: 'Error saving - check if name is unique'};
+        this.feedback = {type: 'warning', message: 'Error saving:  ' + err.error.message};
       }
     );
   }

@@ -30,27 +30,38 @@ public class GameResource {
     }
 
     @PostMapping("/games")
-    public ResponseEntity<Game> startGame(@Valid @RequestBody Game game)
-    {
+    public ResponseEntity<Game> startGame(@Valid @RequestBody Game game) throws Exception {
         Player player1 = game.getPlayer1();
         Player player2 = game.getPlayer2();
 
         if(player1.equals(player2)){
             log.error("Failed to make game - players not unique");
-
-            return ResponseEntity.badRequest().build();
+            throw new Exception("Player 1 and Player 2 need to be unique");
         }
 
-        Game gameStarted = gameService.startGame(player1, player2);
-        log.info("Started a new game with player " + player1.getId() + " and player " + player2.getId());
-        return ResponseEntity.ok(gameStarted);
+       try {
+           Game gameStarted = gameService.startGame(player1, player2);
+           log.info("Started a new game with player " + player1.getId() + " and player " + player2.getId());
+           return ResponseEntity.ok(gameStarted);
+       }
+       catch (Exception e) {
+           log.error("Failed to make new game");
+           throw new Exception("Could not start game");
+        }
     }
 
     @PostMapping("/droptoken/{columnNumber}")
-    public ResponseEntity<Boolean> dropToken(@PathVariable int columnNumber){
-        Boolean validated = gameService.dropToken(columnNumber, gameService.getGame().getCurrentPlayer().getId());
+    public ResponseEntity<Boolean> dropToken(@PathVariable int columnNumber) throws Exception {
 
+        boolean validated = gameService.dropToken(columnNumber, gameService.getGame().getCurrentPlayer().getId());
+
+        if (validated == false)
+        {
+            log.info("Token drop in column " + columnNumber + " failed as column is full" );
+            throw new Exception("Not a valid move");
+        }
         log.info("Dropped a token in column " + columnNumber);
         return ResponseEntity.ok(validated);
     }
+
 }

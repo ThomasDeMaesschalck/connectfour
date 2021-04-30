@@ -56,7 +56,7 @@ export class StartgameComponent implements OnInit {
         }, 500);
       },
       err => {
-        this.feedback = {type: 'warning', message: 'Error creating new game - select two unique players!'};
+        this.feedback = {type: 'warning', message: 'Error: ' + err.error.message};
       }
     );
   }

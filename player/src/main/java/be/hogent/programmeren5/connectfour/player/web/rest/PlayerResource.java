@@ -34,37 +34,35 @@ public class PlayerResource {
     }
 
     @GetMapping("/players/{id}")
-    public ResponseEntity<Player> getById(@PathVariable Long id){
+    public ResponseEntity<Player> getById(@PathVariable Long id) throws Exception {
         Player player = playerService.getById(id);
         if(player == null){
             log.error("Failed to find player number " + id);
-
-            return ResponseEntity.notFound().build();
+            throw new Exception("Player not found");
         }
         log.info("Retrieved player number " + id);
         return ResponseEntity.ok(player);
     }
 
     @PostMapping("/players")
-    public ResponseEntity<Player> createPlayer(@Valid @RequestBody Player player)
-    {
+    public ResponseEntity<Player> createPlayer(@Valid @RequestBody Player player) throws Exception {
         if (playerService.save(player)) {
             log.info("Saved player " + player);
             return ResponseEntity.ok(player);
         }
         else
         {
-            return new ResponseEntity("Player already exists",HttpStatus.BAD_REQUEST);
+            log.error("Failed to add player - duplicate name " + player.getName());
+            throw new Exception("Player already exists - duplicate name");
         }
     }
 
     @PostMapping("/increasescore/{id}")
-    public ResponseEntity<Boolean> increaseScoreById(@PathVariable Long id){
+    public ResponseEntity<Boolean> increaseScoreById(@PathVariable Long id) throws Exception {
         boolean found = playerService.increaseScore(id);
         if(!found){
             log.error("Failed to increase highscore of player number " + id);
-
-            return ResponseEntity.notFound().build();
+            throw new Exception("Problem with increasing highscore for player " + id);
         }
         else {
             log.info("Increased highscore of player number " + id);

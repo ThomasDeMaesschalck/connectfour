@@ -36,7 +36,7 @@ export class GameplayComponent implements OnInit {
         }, 100);
       },
       err => {
-        this.feedback = {type: 'warning', message: 'This move is not possible'};
+        this.feedback = {type: 'warning', message: err.error.message};
       }
     );
   }
