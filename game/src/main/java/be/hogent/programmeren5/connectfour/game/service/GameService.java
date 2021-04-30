@@ -108,7 +108,7 @@ public class GameService {
         }
 
         //check diagonal
-        for(int row = 3; row < rows - 3; row++){  //nakijken of dit klopt
+        for(int row = 3; row < rows; row++){ 
             for(int col = 0; col < columns - 3; col++){
                 if (board[col][row] == currentPlayer   &&
                         board[col+1][row-1] == currentPlayer &&
