@@ -8,16 +8,23 @@
     {{ feedback.message }}
   </p>
 
-  <div *ngIf="game.gameWon == false && game.boardIsFull != true">{{game.currentPlayer.name}}, drop a token!</div>
+  <div *ngIf="game.gameWon == false && game.boardIsFull != true && game.currentPlayer.id == game.player1.id">{{game.currentPlayer.name}}, drop a <span class="redtoken"></span> token!
+  </div>
+
+  <div *ngIf="game.gameWon == false && game.boardIsFull != true && game.currentPlayer.id == game.player2.id">{{game.currentPlayer.name}}, drop a <span class="yellowtoken"></span> token!
+  </div>
+
   <div *ngIf="game.gameWon == false && game.boardIsFull == true"><span class="nes-text is-error">Both players lost, board is full!</span></div>
 
-  <p *ngIf="game.gameWon == true" class="nes-balloon from-left nes-pointer">
-    <i class="nes-icon trophy is-large"></i>
-    {{game.currentPlayer.name}} won the game!
-    <i class="nes-icon trophy is-large"></i>
-  </p>
 
   <div class="container mt-2">
+
+    <p *ngIf="game.gameWon == true" class="nes-balloon from-left nes-pointer">
+      <i class="nes-icon trophy is-large"></i>
+      {{game.currentPlayer.name}} won the game!
+      <i class="nes-icon trophy is-large"></i>
+    </p>
+
     <div class="row">
       <div *ngFor="let item of game.board" class="col-sm columnhover pt-3 pb-2"
            [ngClass]="{columnhover: game.gameWon == false, 'not-allowed': game.gameWon == true}">
