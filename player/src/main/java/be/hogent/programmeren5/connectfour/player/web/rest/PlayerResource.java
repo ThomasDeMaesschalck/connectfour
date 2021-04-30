@@ -58,7 +58,7 @@ public class PlayerResource {
         }
     }
 
-    @GetMapping("/increasescore/{id}")
+    @PostMapping("/increasescore/{id}")
     public ResponseEntity<Boolean> increaseScoreById(@PathVariable Long id){
         boolean found = playerService.increaseScore(id);
         if(!found){

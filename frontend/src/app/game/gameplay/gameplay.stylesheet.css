@@ -20,6 +20,8 @@
   background: blue;
 }
 .columnhover:hover{
-  background-color: yellowgreen;
+  background-color: lightblue;
 }
-
+.not-allowed {
+  cursor: not-allowed;
+}

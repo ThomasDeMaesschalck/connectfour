@@ -17,14 +17,15 @@
 
   </div>
 
-<div *ngIf="gameInProgress.gameWon == true || hideGameStarter == false">
+<div>
   <div class="h2 mb-4">  <i class="snes-jp-logo"></i> Connect Four - Start a new game:</div>
 
 
       <form  #editForm="ngForm" (ngSubmit)="save()">
 
         <div class="nes-select mb-4">
-          <label for="player1">Pick first player:</label>
+          <label for="player1">Pick first player:
+          </label>
 
           <select [(ngModel)]="game.player1" id="player1" name="player1" required>
             <option *ngFor="let player of playerList"  id="playerItem" name="player1" [ngValue]="player">{{player.name}}</option>

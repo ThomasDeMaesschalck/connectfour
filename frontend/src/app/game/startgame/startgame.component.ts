@@ -25,7 +25,6 @@ export class StartgameComponent implements OnInit {
 
   ngOnInit(): void {
     this.gameInProgressCheck();
-    this.gameStarterhider();
     this.loadPlayers();
     this.game = new Game();
   }
@@ -38,14 +37,6 @@ export class StartgameComponent implements OnInit {
     this.playerService.load(this.filter);
   }
 
-  gameStarterhider(): void {
-      if (this.gameInProgress != null) {
-      if (this.gameInProgress.gameWon == true) {
-          this.hideGameStarter = false;
-      }
-    }
-  }
-
   get gameInProgress(): Game {
     return this.gameService.game;
   }
@@ -53,6 +44,7 @@ export class StartgameComponent implements OnInit {
   gameInProgressCheck(): void {
     this.gameService.load();
   }
+
 
   save() {
     this.gameService.save(this.game).subscribe(

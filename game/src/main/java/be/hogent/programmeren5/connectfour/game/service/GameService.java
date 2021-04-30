@@ -11,7 +11,7 @@ import java.util.Arrays;
 @Service
 public class GameService {
 
-    private static final int columns = 7;
+     private static final int columns = 7;
     private static final int rows = 6;
     private Game game;
     private int[] boardRowsFilledPerColumn;
