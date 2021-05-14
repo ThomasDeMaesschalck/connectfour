@@ -14,6 +14,9 @@ import javax.validation.Valid;
 import java.util.Arrays;
 import java.util.stream.StreamSupport;
 
+/**
+ * Game REST resource layer. Communicates with the frontend.
+ */
 @CrossOrigin
 @RestController
 @RequestMapping("/api")
@@ -24,6 +27,11 @@ public class GameResource {
     @Autowired
     private GameService gameService;
 
+    /**
+     * Retrieve the current game
+     * Perform check to see if board is full and adjust boardIsFull boolean accordingly
+     * @return Returns the Game object
+     */
     @GetMapping("/games")
     public ResponseEntity<Game> getGame() {
         Game game = gameService.getGame();
@@ -38,6 +46,12 @@ public class GameResource {
         return ResponseEntity.ok(game);
     }
 
+    /**
+     * Start a new game.
+     * @param game Contains the two players
+     * @return Game object
+     * @throws Exception Throws exception when game creation fails
+     */
     @PostMapping("/games")
     public ResponseEntity<Game> startGame(@Valid @RequestBody Game game) throws Exception {
         Player player1 = game.getPlayer1();
@@ -59,6 +73,12 @@ public class GameResource {
         }
     }
 
+    /**
+     * Gameplay actions. Lets a user drop a token in the specified Connect Four column.
+     * @param columnNumber The selected Connect Four column
+     * @return Boolean is returned to specify whether the token drop was valid
+     * @throws Exception Thrown when an invalid move was made
+     */
     @PostMapping("/droptoken/{columnNumber}")
     public ResponseEntity<Boolean> dropToken(@PathVariable int columnNumber) throws Exception {
 

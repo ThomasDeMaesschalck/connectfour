@@ -13,21 +13,42 @@ import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
 import java.util.Optional;
 
+/**
+ * Player service layer
+ */
 @Service
 @AllArgsConstructor
 public class PlayerService {
 
+    /**
+     * Player repository
+     */
     @Autowired
     private PlayerRepository playerRepository;
 
+    /**
+     * The player mapper.
+     */
     @Autowired
     private PlayerMapper playerMapper;
 
+    /**
+     * Get a paginated list of all persisted players.
+     * @param pageNo Number of page requested
+     * @param pageSize The size of the page
+     * @param sortBy Sort by selection
+     * @return A Page of Players
+     */
     public Page<Player> getAll(Integer pageNo, Integer pageSize, String sortBy){
         Pageable paging = PageRequest.of(pageNo, pageSize, Sort.by(Sort.Direction.DESC, sortBy));
         return playerRepository.findAll(paging).map(playerMapper::toDTO);
     }
 
+    /**
+     * Get a player from the database via the user id
+     * @param id Long value of the Player id
+     * @return Player from the DB
+     */
     public Player getById(Long id){
         Optional<PlayerEntity> playerEntityOptional = playerRepository.findById(id);
         if(playerEntityOptional.isPresent()){
@@ -36,6 +57,11 @@ public class PlayerService {
         return null;
     }
 
+    /**
+     * Save a new player
+     * @param player The player that needs to be persisted
+     * @return Boolean indicates whether the operation succeeded
+     */
     public boolean save(Player player) {
         player.setHighscore(0L);
         PlayerEntity playerToSave = playerMapper.toEntity(player);
@@ -49,6 +75,11 @@ public class PlayerService {
      return true;
     }
 
+    /**
+     * Increase the highscore of a winning player
+     * @param id Long value of the player id
+     * @return Boolean true is returned if the action was a success
+     */
     public boolean increaseScore(Long id){
     Optional<PlayerEntity> playerEntityOptional = playerRepository.findById(id);
         if(playerEntityOptional.isPresent()) {

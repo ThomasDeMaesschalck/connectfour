@@ -5,6 +5,9 @@ import be.hogent.programmeren5.connectfour.player.service.dto.Player;
 import org.springframework.data.repository.PagingAndSortingRepository;
 import org.springframework.stereotype.Repository;
 
+/**
+ * Spring Boot repository for the Player microservice
+ */
 @Repository
 public interface PlayerRepository extends PagingAndSortingRepository<PlayerEntity, Long> {
  }

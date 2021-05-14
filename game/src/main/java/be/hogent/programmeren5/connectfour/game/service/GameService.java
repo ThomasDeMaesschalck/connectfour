@@ -8,22 +8,48 @@ import org.springframework.web.client.RestTemplate;
 
 import java.util.Arrays;
 
+/**
+ * Service class for the Game microservice
+ */
 @Service
 public class GameService {
 
+    /**
+     * URL of Player API to increase the high score of the winning player
+     */
     @Value("http://localhost:5551/api/increasescore/")
     private String urlPlayersHighscore;
 
+    /**
+     * Number of colums of the Connect Four board
+     */
     private static final int columns = 7;
+
+    /**
+     *  Number of rows of the Connect Four board
+     */
     private static final int rows = 6;
+
+    /**
+     * The game
+     */
     private Game game;
+
+    /**
+     * Stores number of rows per column that have been filled by the players
+     */
     private int[] boardRowsFilledPerColumn;
 
-    public Game getGame(){
-        return game;
-    }
 
-    public Game startGame(Player player1, Player player2) //setting up a new board
+    /**
+     * Start a Connect Four game.
+     * Sets up the board.
+     * Player 1 goes first.
+     * @param player1 The first player
+     * @param player2 The second player
+     * @return Returns the created Game.
+     */
+    public Game startGame(Player player1, Player player2)
     {
         game = new Game(columns, rows, player1, player2);
         boardRowsFilledPerColumn = new int[columns];
@@ -32,6 +58,18 @@ public class GameService {
         return game;
     }
 
+    /**
+     * Player drops a token in a row of the Connect Four board.
+     * Method validates whether the move is valid
+     * Method writes player id to the selected row
+     * Method adjusts boardRowsFilledPerColumn array to reflect current situation.
+     * Calls logic to check if player made a winning move.
+     * If player made the winning move, REST API is used to increase player's high score.
+     * If game was not won, next round goes to the other player
+     * @param columnNumber The column where a token needs to be added to
+     * @param playerId The player id of the player who made the move
+     * @return Returns boolean true if move was valid
+     */
     public boolean dropToken(int columnNumber, Long playerId){
         //validate move
         boolean validationStatus = false;
@@ -66,10 +104,18 @@ public class GameService {
         }
 
 
+    /**
+     * Validates the player move.
+     * @param columnNumber Column where a token was inserted into
+     * @return Returns false if move is not possible.
+     */
     public boolean validateMove(int columnNumber) {
         return boardRowsFilledPerColumn[columnNumber] < rows;
     }
 
+    /**
+     * Switches to player 1 if player 2 made a move, or other way around.
+     */
     public void setNextPlayer() {
         if (getGame().getCurrentPlayer().equals(getGame().getPlayer1())) {
             getGame().setCurrentPlayer(getGame().getPlayer2());
@@ -78,6 +124,12 @@ public class GameService {
         }
     }
 
+    /**
+     * Logic to check whether the current player made a winning move in the Connect Four game.
+     * Method checks for horizontal, vertical, diagonal, and reverse diagonal win conditions.
+     * If one condition is met, the current player won.
+     * @return Returns true if current player made the winning move
+     */
     public boolean checkIfPlayerWon(){
      boolean winCheck = false;
      Long[][] board = getGame().getBoard();
@@ -134,7 +186,12 @@ public class GameService {
         return winCheck;
     }
 
-    public boolean isBoardFull() { //check if slots filled equals maximum number of slots
+    /**
+     * Checks whether all Connect Four rows are fully filled.
+     * This is used to stop the game and means both players lost.
+     * @return Returns true of all slots of the board are filled.
+     */
+    public boolean isBoardFull() {
         int slotsFilled = 0;
         for (int i = 0; i < columns; i++ )
         {
@@ -144,5 +201,9 @@ public class GameService {
             return true;
         }
         return false;
+    }
+
+    public Game getGame(){
+        return game;
     }
 }
