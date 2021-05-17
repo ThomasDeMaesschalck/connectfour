@@ -203,7 +203,17 @@ public class GameService {
         return false;
     }
 
+    public int[] getBoardRowsFilledPerColumn() {
+        return boardRowsFilledPerColumn;
+    }
+
+    protected void setBoardRowsFilledPerColumn(int[] boardRowsFilledPerColumn) {
+        this.boardRowsFilledPerColumn = boardRowsFilledPerColumn;
+    }
+
     public Game getGame(){
         return game;
     }
 }
+
+
