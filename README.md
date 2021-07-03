@@ -1,6 +1,8 @@
 # Connect Four video game
 School project. A Connect Four video game with Spring Boot microservices and Angular frontend. 
 
+The game has basic user registration and persists highscores. 
+
 I used a retro CSS framework for a Nintendo SNES look & feel.
 
 ![connectfour](https://user-images.githubusercontent.com/58608713/124358290-e93b3300-dc1f-11eb-851b-28e527d351b1.png)
